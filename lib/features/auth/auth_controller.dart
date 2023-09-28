@@ -58,7 +58,6 @@ abstract class AuthControllerBase with Store {
       // Modular.to.navigate('/chats/');
       Modular.to.navigate('/home');
     }
-    log("Autologin finished");
     _userStatus = UserStatus.active;
     return _userStatus;
   }

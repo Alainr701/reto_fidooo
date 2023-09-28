@@ -1,12 +1,16 @@
 import 'package:reto/commons/data/device_entity.dart';
 import 'package:reto/gen/assets.gen.dart';
+import 'package:reto/styles/custom_container.dart';
+import 'package:reto/styles/f_text.dart';
 import 'package:reto/styles/styles.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key, this.onSubmitted, required this.device});
+  const SignUpPage(
+      {super.key, this.onSubmitted, required this.device, this.onTap});
   final void Function(String, String, String)? onSubmitted;
   final DeviceEntity device;
+  final VoidCallback? onTap;
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -35,17 +39,9 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: screenSize.width,
-        height: screenSize.height,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(Assets.images.loginBg.path))),
-        child: widget.device.deviceType == DeviceType.desktop
-            ? _buildDesktopView()
-            : _buildMobileView(),
-      ),
+      body: widget.device.deviceType == DeviceType.desktop
+          ? _buildDesktopView()
+          : _buildMobileView(),
     );
   }
 
@@ -97,20 +93,16 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(height: icon != null ? AppSizes.size20 : AppSizes.size50),
             FTextField(
               textStyle: AppTextStyles.descriptionStyle,
-              textinputType: TextInputType.emailAddress,
               autofillHints: const [AutofillHints.telephoneNumber],
               controller: nameController,
-              title: 'Name',
               hintText: 'admin',
               withTitle: false,
             ),
             SizedBox(height: AppSizes.size30),
             FTextField(
               textStyle: AppTextStyles.descriptionStyle,
-              textinputType: TextInputType.emailAddress,
               autofillHints: const [AutofillHints.telephoneNumber],
               controller: emailController,
-              title: 'Email',
               hintText: 'admin@fidooo.com',
               withTitle: false,
             ),
@@ -120,7 +112,6 @@ class _SignUpPageState extends State<SignUpPage> {
               obscureText: true,
               maxLines: 1,
               controller: passwordController,
-              title: 'Password',
               hintText: 'password',
               onSubmitted: (String text) async {
                 widget.onSubmitted?.call(
@@ -131,22 +122,24 @@ class _SignUpPageState extends State<SignUpPage> {
               withTitle: false,
             ),
             SizedBox(height: AppSizes.size50),
-            SizedBox(
+            FButtonContainer(
               width: constraints.maxWidth,
-              child: ElevatedButton(
-                onPressed: () async {
-                  widget.onSubmitted?.call(
-                      nameController.text.trim(),
-                      emailController.text.trim(),
-                      passwordController.text.trim());
-                },
-                child: Container(
-                    margin: EdgeInsets.all(AppSizes.size10),
-                    child: Text('Sign Up', style: AppTextStyles.buttonStyle)),
-              ),
+              textAlign: Alignment.center,
+              color: const Color(0xFF3D367D),
+              onTap: () {
+                widget.onSubmitted?.call(
+                    nameController.text.trim(),
+                    emailController.text.trim(),
+                    passwordController.text.trim());
+              },
+              child: Text('Sign up',
+                  style: AppTextStyles.buttonStyle.copyWith(
+                    color: Colors.white,
+                  )),
             ),
             SizedBox(height: AppSizes.size10),
-            Text('Forgot <b>password</b>', style: AppTextStyles.buttonStyle)
+            FText('<b>Login</b>',
+                onTap: widget.onTap, style: AppTextStyles.buttonStyle)
           ],
         );
       }),

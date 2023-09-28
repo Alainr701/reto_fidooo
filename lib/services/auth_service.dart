@@ -26,7 +26,6 @@ class FirebaseAuthService {
   Future<bool> signInEmail(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      log('Result of email verificartion:');
       return true;
     } catch (e) {
       log(e.toString());
@@ -36,7 +35,6 @@ class FirebaseAuthService {
     }
   }
 
-  //sign up
   Future<bool> signUpEmail(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(

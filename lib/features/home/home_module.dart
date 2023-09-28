@@ -17,8 +17,16 @@ class HomeModule extends Module {
     r.child('/home', child: (context) {
       log('Going to chats page');
       // final deviceController = Modular.get<DeviceController>();
-      return const DeviceListener(
-        child: HomePage(),
+      return DeviceListener(
+        child: HomePage(
+          onTap: () async {
+            final result = await Modular.get<HomeController>().logout();
+            if (result) {
+              Modular.to.navigate('/auth/login');
+              return;
+            }
+          },
+        ),
       );
     });
   }

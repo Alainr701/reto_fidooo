@@ -60,7 +60,7 @@ abstract class SignUpBase with Store {
     return _userStatus;
   }
 
-  Future<bool> signUpEmail(String email, String password) async {
+  Future<bool> register(String name, String email, String password) async {
     return await _authService.signUpEmail(email, password);
   }
 

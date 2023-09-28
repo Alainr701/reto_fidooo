@@ -25,6 +25,9 @@ class AuthModule extends Module {
                 Modular.to.navigate('/home');
               }
             },
+            onTap: () {
+              Modular.to.navigate('/auth/sign_up');
+            },
           ),
         );
       });

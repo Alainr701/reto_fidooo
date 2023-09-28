@@ -1,11 +1,14 @@
 import 'package:reto/commons/data/device_entity.dart';
-import 'package:reto/gen/assets.gen.dart';
+import 'package:reto/styles/custom_container.dart';
+import 'package:reto/styles/f_text.dart';
 import 'package:reto/styles/styles.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, this.onSubmitted, required this.device});
+  const LoginPage(
+      {super.key, this.onSubmitted, required this.device, this.onTap});
   final void Function(String, String)? onSubmitted;
+  final VoidCallback? onTap;
   final DeviceEntity device;
 
   @override
@@ -33,17 +36,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: screenSize.width,
-        height: screenSize.height,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(Assets.images.loginBg.path))),
-        child: widget.device.deviceType == DeviceType.desktop
-            ? _buildDesktopView()
-            : _buildMobileView(),
-      ),
+      body: widget.device.deviceType == DeviceType.desktop
+          ? _buildDesktopView()
+          : _buildMobileView(),
     );
   }
 
@@ -95,10 +90,8 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: icon != null ? AppSizes.size20 : AppSizes.size50),
             FTextField(
               textStyle: AppTextStyles.descriptionStyle,
-              textinputType: TextInputType.emailAddress,
               autofillHints: const [AutofillHints.telephoneNumber],
               controller: emailController,
-              title: 'Email',
               hintText: 'admin@fidooo.com',
               withTitle: false,
             ),
@@ -108,7 +101,6 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
               maxLines: 1,
               controller: passwordController,
-              title: 'Password',
               hintText: 'password',
               onSubmitted: (String text) async {
                 widget.onSubmitted?.call(emailController.text.trim(),
@@ -117,20 +109,22 @@ class _LoginPageState extends State<LoginPage> {
               withTitle: false,
             ),
             SizedBox(height: AppSizes.size50),
-            SizedBox(
+            FButtonContainer(
               width: constraints.maxWidth,
-              child: ElevatedButton(
-                onPressed: () async {
-                  widget.onSubmitted?.call(emailController.text.trim(),
-                      passwordController.text.trim());
-                },
-                child: Container(
-                    margin: EdgeInsets.all(AppSizes.size10),
-                    child: Text('Sign in', style: AppTextStyles.buttonStyle)),
-              ),
+              textAlign: Alignment.center,
+              color: const Color(0xFF3D367D),
+              onTap: () {
+                widget.onSubmitted?.call(emailController.text.trim(),
+                    passwordController.text.trim());
+              },
+              child: Text('Sign in',
+                  style: AppTextStyles.buttonStyle.copyWith(
+                    color: Colors.white,
+                  )),
             ),
             SizedBox(height: AppSizes.size10),
-            Text('Forgot <b>password</b>', style: AppTextStyles.buttonStyle)
+            FText('<b>Register</b>',
+                onTap: widget.onTap, style: AppTextStyles.buttonStyle)
           ],
         );
       }),
