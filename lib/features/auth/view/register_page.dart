@@ -4,19 +4,20 @@ import 'package:reto/styles/f_text.dart';
 import 'package:reto/styles/styles.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage(
+class RegisterPage extends StatefulWidget {
+  const RegisterPage(
       {super.key, this.onSubmitted, required this.device, this.onTap});
-  final void Function(String, String)? onSubmitted;
-  final VoidCallback? onTap;
+  final void Function(String, String, String)? onSubmitted;
   final DeviceEntity device;
+  final VoidCallback? onTap;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   late Size screenSize;
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -28,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -86,8 +88,16 @@ class _LoginPageState extends State<LoginPage> {
               icon,
               SizedBox(height: AppSizes.size30),
             ],
-            Text('Welcome', style: AppTextStyles.subTitleStyle),
+            Text('Sign Up', style: AppTextStyles.subTitleStyle),
             SizedBox(height: icon != null ? AppSizes.size20 : AppSizes.size50),
+            FTextField(
+              textStyle: AppTextStyles.descriptionStyle,
+              autofillHints: const [AutofillHints.telephoneNumber],
+              controller: nameController,
+              hintText: 'admin',
+              withTitle: false,
+            ),
+            SizedBox(height: AppSizes.size30),
             FTextField(
               textStyle: AppTextStyles.descriptionStyle,
               autofillHints: const [AutofillHints.telephoneNumber],
@@ -103,7 +113,9 @@ class _LoginPageState extends State<LoginPage> {
               controller: passwordController,
               hintText: 'password',
               onSubmitted: (String text) async {
-                widget.onSubmitted?.call(emailController.text.trim(),
+                widget.onSubmitted?.call(
+                    nameController.text.trim(),
+                    emailController.text.trim(),
                     passwordController.text.trim());
               },
               withTitle: false,
@@ -114,16 +126,18 @@ class _LoginPageState extends State<LoginPage> {
               textAlign: Alignment.center,
               color: const Color(0xFF3D367D),
               onTap: () {
-                widget.onSubmitted?.call(emailController.text.trim(),
+                widget.onSubmitted?.call(
+                    nameController.text.trim(),
+                    emailController.text.trim(),
                     passwordController.text.trim());
               },
-              child: Text('Sign in',
+              child: Text('Sign up',
                   style: AppTextStyles.buttonStyle.copyWith(
                     color: Colors.white,
                   )),
             ),
             SizedBox(height: AppSizes.size10),
-            FText('<b>Register</b>',
+            FText('<b>Login</b>',
                 onTap: widget.onTap, style: AppTextStyles.buttonStyle)
           ],
         );

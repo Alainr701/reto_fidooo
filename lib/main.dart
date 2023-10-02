@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:reto/app.module.dart';
 import 'package:reto/styles/app_theme_data.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           theme: AppThemeData.lightThemeData,
           darkTheme: AppThemeData.darkThemeData,
           themeMode: ThemeMode.light,
+          builder: FlutterSmartDialog.init(),
           title: 'Reto',
           routerConfig: Modular.routerConfig,
         );

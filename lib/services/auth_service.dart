@@ -14,10 +14,7 @@ class FirebaseAuthService {
     }
   }
 
-  // bool isAnonymous() => getCurrentAuthUser()!.isAnonymous;
   String get error => _errorMessage;
-
-  Future verifySms(String smsCode) async {}
 
   Future<User?> getCurrentAuthUser() async {
     return await _auth.authStateChanges().first;

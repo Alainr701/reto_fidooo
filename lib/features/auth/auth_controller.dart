@@ -42,6 +42,10 @@ abstract class AuthControllerBase with Store {
     return await _authService.signInEmail(email, password);
   }
 
+  Future<bool> register(String name, String email, String password) async {
+    return await _authService.signUpEmail(email, password);
+  }
+
   String get error => _authService.error;
 
   Future<UserStatus> autoLogin({bool justLoggedIn = false}) async {
@@ -56,7 +60,7 @@ abstract class AuthControllerBase with Store {
       token = await _userAuth!.getIdToken();
       _authStatus = AuthStatus.authenticated;
       // Modular.to.navigate('/chats/');
-      Modular.to.navigate('/home');
+      Modular.to.navigate('/dashboard/user');
     }
     _userStatus = UserStatus.active;
     return _userStatus;

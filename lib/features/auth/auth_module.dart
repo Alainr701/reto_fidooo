@@ -3,10 +3,11 @@ import 'dart:developer';
 import 'package:reto/commons/controllers/device_controller.dart';
 import 'package:reto/commons/format/page_format.dart';
 import 'package:reto/features/auth/auth_controller.dart';
-import 'package:reto/features/auth/login_page.dart';
+import 'package:reto/features/auth/view/login_page.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:reto/features/auth/view/register_page.dart';
 
 class AuthModule extends Module {
   @override
@@ -22,7 +23,7 @@ class AuthModule extends Module {
               bool status = await Modular.get<AuthController>()
                   .signInEmail(email, password);
               if (status) {
-                Modular.to.navigate('/home');
+                Modular.to.navigate('/dashboard/user');
               }
             },
             onTap: () {
@@ -32,5 +33,27 @@ class AuthModule extends Module {
         );
       });
     });
+    r.child(
+      '/register',
+      child: (context) {
+        return Observer(builder: (context) {
+          Modular.get<AuthController>().autoLogin();
+
+          return DeviceListener(
+            child: RegisterPage(
+              device: Modular.get<DeviceController>().device,
+              onSubmitted: (String name, String email, String password) async {
+                bool status = await Modular.get<AuthController>()
+                    .register(name, email, password);
+                if (status) Modular.to.navigate('/dashboard/user');
+              },
+              onTap: () {
+                Modular.to.navigate('/auth/register');
+              },
+            ),
+          );
+        });
+      },
+    );
   }
 }

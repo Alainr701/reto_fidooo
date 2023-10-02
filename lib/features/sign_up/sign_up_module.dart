@@ -21,7 +21,7 @@ class SignUpModule extends Module {
               bool status = await Modular.get<SignUpController>()
                   .register(name, email, password);
               if (status) {
-                Modular.to.navigate('/home');
+                Modular.to.navigate('/dashboard/user');
               }
             },
             onTap: () {

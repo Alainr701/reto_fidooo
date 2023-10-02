@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:reto/styles/f_text.dart';
 
 class FTextField extends StatelessWidget {
   const FTextField({
@@ -37,8 +38,10 @@ class FTextField extends StatelessWidget {
     this.readOnly = false,
     this.inputDecoration,
     this.validator,
+    this.title,
   }) : super(key: key);
   final bool withTitle;
+  final String? title;
   final TextCapitalization textCapitalization;
   final TextEditingController controller;
   final Color? selectedColor;
@@ -71,33 +74,40 @@ class FTextField extends StatelessWidget {
   final String? validator;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: onChanged,
-      controller: controller,
-      onFieldSubmitted: onSubmitted,
-      decoration: inputDecoration ??
-          InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-              borderSide: selectedColor == null
-                  ? const BorderSide()
-                  : BorderSide(color: selectedColor!),
-            ),
-            enabledBorder: enabledBorder,
-            contentPadding: contentPadding,
-            filled: true,
-            hintText: hintText,
-            hintStyle: hintStyle,
-            fillColor: fillColor,
-            prefixIcon: prefixIcon != null
-                ? Icon(prefixIcon, color: selectedColor)
-                : null,
-            suffixIcon: suffixIcon,
-            isDense: true,
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FText(hintText ?? '', style: titleStyle),
+        const SizedBox(height: 5),
+        TextFormField(
+          onChanged: onChanged,
+          controller: controller,
+          onFieldSubmitted: onSubmitted,
+          decoration: inputDecoration ??
+              InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                  borderSide: selectedColor == null
+                      ? const BorderSide()
+                      : BorderSide(color: selectedColor!),
+                ),
+                enabledBorder: enabledBorder,
+                contentPadding: contentPadding,
+                filled: true,
+                hintText: hintText,
+                hintStyle: hintStyle,
+                fillColor: fillColor,
+                prefixIcon: prefixIcon != null
+                    ? Icon(prefixIcon, color: selectedColor)
+                    : null,
+                suffixIcon: suffixIcon,
+                isDense: true,
+              ),
+        ),
+      ],
     );
   }
 }

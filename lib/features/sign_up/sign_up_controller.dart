@@ -53,7 +53,7 @@ abstract class SignUpBase with Store {
       token = await _userAuth!.getIdToken();
       _authStatus = AuthStatus.authenticated;
       // Modular.to.navigate('/chats/');
-      Modular.to.navigate('/home');
+      Modular.to.navigate('/dashboard/user');
     }
     log("Autologin finished");
     _userStatus = UserStatus.active;
