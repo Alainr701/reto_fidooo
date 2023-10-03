@@ -19,7 +19,7 @@ class _DashboardPageState extends State<DashboardPage> {
         body: Row(
       children: [
         Container(
-          color: Color.fromARGB(255, 205, 200, 246),
+          color: const Color.fromARGB(255, 205, 200, 246),
           height: double.infinity,
           width: 300,
           child: Column(

@@ -7,9 +7,7 @@ class FirestoreUser {
   final firestore.CollectionReference conversationsCollection =
       firestore.FirebaseFirestore.instance.collection("users");
 
-  //create
   Future<void> createDataUser(UserEntity user) async {
-    print('prueba : ');
     await conversationsCollection.doc().set(user.toJson());
   }
 }

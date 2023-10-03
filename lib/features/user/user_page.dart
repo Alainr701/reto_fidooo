@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:reto/styles/custom_container.dart';
 import 'package:reto/styles/f_text.dart';
 import 'package:reto/styles/styles.dart';
 
@@ -34,11 +35,21 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _showAttach(context);
-          },
-          child: const Text('data'),
+        child: SizedBox(
+          width: 500,
+          height: 50,
+          child: FButtonContainer(
+            width: double.infinity,
+            textAlign: Alignment.center,
+            color: const Color(0xFF3D367D),
+            onTap: () {
+              _showAttach(context);
+            },
+            child: Text('Preguntas',
+                style: AppTextStyles.buttonStyle.copyWith(
+                  color: Colors.white,
+                )),
+          ),
         ),
       ),
     );
@@ -101,8 +112,11 @@ class _UserPageState extends State<UserPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
+                      child: FButtonContainer(
+                        width: double.infinity,
+                        textAlign: Alignment.center,
+                        color: const Color(0xFF3D367D),
+                        onTap: () {
                           if (nameController.text.isNotEmpty &&
                               ageController.text.isNotEmpty &&
                               stateController.text.isNotEmpty &&
@@ -117,14 +131,23 @@ class _UserPageState extends State<UserPage> {
                             );
                           }
                         },
-                        child: const Text('Enviar'),
+                        child: Text('Enviar',
+                            style: AppTextStyles.buttonStyle.copyWith(
+                              color: Colors.white,
+                            )),
                       ),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => SmartDialog.dismiss(),
-                        child: const Text('Salir'),
+                      child: FButtonContainer(
+                        width: double.infinity,
+                        textAlign: Alignment.center,
+                        color: const Color(0xFF3D367D),
+                        onTap: () => SmartDialog.dismiss(),
+                        child: Text('Cerrar',
+                            style: AppTextStyles.buttonStyle.copyWith(
+                              color: Colors.white,
+                            )),
                       ),
                     ),
                   ],

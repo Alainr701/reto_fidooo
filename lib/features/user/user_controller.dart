@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:reto/commons/data/user_entity.dart';
 import 'package:reto/services/firestore/firestore_user.dart';
 import 'package:mobx/mobx.dart';
+import 'package:intl/intl.dart';
 
 part 'user_controller.g.dart';
 
@@ -12,14 +13,13 @@ abstract class UserControllerBase with Store {
   UserEntity? _userData;
   final FirestoreUser _firestoreUser = FirestoreUser();
 
-  //create
   void createUser(
       String name, String age, String state, String date, String gender) async {
     _userData = UserEntity(
       name: name,
       age: int.parse(age),
       state: state,
-      // date: DateTime.parse(date),
+      date: DateFormat('dd/MM/yyyy').parse(date),
       gender: gender,
     );
     await _firestoreUser.createDataUser(_userData!);

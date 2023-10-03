@@ -47,10 +47,8 @@ abstract class AuthControllerBase with Store {
   }
 
   String get error => _authService.error;
-
   Future<UserStatus> autoLogin({bool justLoggedIn = false}) async {
     _userAuth = await _authService.getCurrentAuthUser();
-
     if (_userAuth == null) {
       _userStatus = UserStatus.signedOut;
       await logout();

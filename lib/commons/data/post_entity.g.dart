@@ -6,6 +6,21 @@ part of 'post_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// PostEntity _$PostEntityFromJson(Map<String, dynamic> json) => PostEntity(
+//       userId: json['userId'] as int,
+//       id: json['id'] as int,
+//       title: json['title'] as String,
+//       body: json['body'] as String,
+//     );
+
+Map<String, dynamic> _$PostEntityToJson(PostEntity instance) =>
+    <String, dynamic>{
+      'userId': instance.userId,
+      'id': instance.id,
+      'title': instance.title,
+      'body': instance.body,
+    };
+
 _$_PostEntity _$$_PostEntityFromJson(Map<String, dynamic> json) =>
     _$_PostEntity(
       userId: json['userId'] as int,
